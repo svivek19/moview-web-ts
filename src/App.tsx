@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const App: React.FC = () => {
   const [movies, setMovies] = useState<any[]>([]);
+  const [dark, setDark] = useState(false);
 
   const API_URL = "https://api.sampleapis.com/movies/comedy";
   useEffect(() => {
@@ -17,13 +18,27 @@ const App: React.FC = () => {
 
     getMovies();
   }, []);
+
+  const handleTheme = () => {
+    setDark(!dark);
+  };
+
   return (
-    <div>
-      <nav className="bg-gray-950 text-white px-2 py-4">
+    <div className={dark ? "bg-gray-950 text-white" : "bg-white"}>
+      <nav
+        className={`${
+          !dark ? "bg-gray-950 text-white" : "bg-gray-100 text-black"
+        } px-2 py-4`}
+      >
         <div className="flex justify-around">
           <h1 className="font-bold tracking-widest text-2xl">MOVIE-WEB</h1>
-          <button className="tracking-widest text-xl bg-white text-black px-2 py-1 rounded-lg">
-            Dark Mode
+          <button
+            onClick={handleTheme}
+            className={`tracking-widest text-xl ${
+              !dark ? "bg-white text-black" : "bg-black text-white"
+            } px-2 py-1 rounded-lg`}
+          >
+            {!dark ? "Dark Mode" : "Light Mode"}
           </button>
         </div>
       </nav>
